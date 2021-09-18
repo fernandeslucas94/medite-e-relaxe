@@ -1,6 +1,15 @@
 // IMPORTS AREA
 import React, {useEffect, useRef, useState} from 'react';
 
+import TrackPlayer, {
+    Capability,
+    Event,
+    State,
+    usePlaybackState,
+    useProgress,
+    useTrackPlayerEvents,
+} from 'react-native-track-player';
+
 import { 
     PageArea,
     AudioTitle,
@@ -32,9 +41,28 @@ import nature from '../../modal/data';
 
 // CONST'S AND VARIABLES AREA
 
+const setupPlayer = async() => {
+    await TrackPlayer.setupPlayer();
+
+    await TrackPlayer.add(nature);
+}
+
+const tooglePlayback = async(playbackState) => {
+   const currentTrack = await TrackPlayer.getCurrentTrack();
+
+   if(currentTrack != null) {
+       if(playbackState == State.Paused) {
+           await TrackPlayer.play();
+       } else {
+           await TrackPlayer.pause();
+       }
+   }
+}
+
 const { width, height }  = Dimensions.get('window');
 
-function player({navigation}) {
+function Player({navigation}) {
+    const playbackState = usePlaybackState();
     const scrollX = useRef(new Animated.Value(0)).current;
     const [audioIndex, setAudioIndex] = useState(0);
     const audioSlider = useRef(null);
@@ -159,8 +187,8 @@ function player({navigation}) {
                     <Ionicons name="play-back-outline" size={35} color="#EEE"/>
                 </TouchableOpacity>
 
-                <TouchableOpacity>
-                    <Ionicons name="play" size={50} color="#EEE"/>
+                <TouchableOpacity onPress={() => tooglePlayback(playbackState)}>
+                    <Ionicons name={playbackState == State.Playing ? "pause" : "play"} size={50} color="#EEE"/>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={skipToNext}>
@@ -171,4 +199,4 @@ function player({navigation}) {
     )
 }
 
-export default player;
+export default Player;

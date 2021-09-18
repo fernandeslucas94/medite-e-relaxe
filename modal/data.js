@@ -2,6 +2,7 @@ const nature = [
     {
         title: "Sons de Chuva",
         image: require('../assets/images/chuva.jpg'),
+        url: require("../assets/tracks/nature_sounds/1 - Despertando com Jesus - Jesus e seus ensinamentos - EP1.mp3"),
         id: 1,
     },
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { TestIds, BannerAd, BannerAdSize} from '@react-native-firebase/admob';
 import { 
     TouchableOpacity, 
@@ -24,7 +24,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import NaturePlayer from '../players/nature_player';
 
+import nature from '../../modal/data';
+
 const NatureSound = ({navigation}) => {
+
+    // const natureSound = [nature, ];
+    // const [natureSoundItem, setNatureSoundItem] = useState(0);
+
     return (
         <PageArea>
             <StatusBar 
@@ -44,9 +50,7 @@ const NatureSound = ({navigation}) => {
 
             <AudioListContainer>
                 <ScrollView>
-                    <AudioItem onPress={() => {
-                        navigation.navigate('Nature Player');
-                    }}>
+                    <AudioItem onPress={() => {'Nature Player'}}>
                         <Ionicons name="play-sharp" size={30} />
                         <Text style={{marginLeft: 80, fontSize: 18}}>Sons de Chuva</Text>
                     </AudioItem>
